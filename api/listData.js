@@ -33,17 +33,17 @@ const deleteList = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// const getSingleList = (firebaseKey) => new Promise((resolve, reject) => {
-//   fetch(`${endpoint}/list/${firebaseKey}.json`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => resolve(data))
-//     .catch(reject);
-// });
+const getSingleList = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/list/${firebaseKey}.json`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
 
 const createList = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/list.json`, {
@@ -83,7 +83,7 @@ const updateList = (payload) => new Promise((resolve, reject) => {
 export {
   updateList,
   createList,
-  // getSingleList,
+  getSingleList,
   deleteList,
   getBoardList,
 };

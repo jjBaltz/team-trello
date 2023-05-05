@@ -1,5 +1,6 @@
 import { getListTasks, getSingleTask, deleteTask } from './taskData';
-import { getSingleList, deleteSingleList } from './listData';
+import { deleteList, getBoardList, getSingleList } from './listData';
+import { deleteSingleBoard } from './boardData';
 
 const viewTaskDetails = (taskFirebaseKey) => new Promise((resolve, reject) => {
   getSingleTask(taskFirebaseKey)
@@ -24,9 +25,22 @@ const deleteListTasks = (listId) => new Promise((resolve, reject) => {
     const deleteTaskPromises = tasksArray.map((task) => deleteTask(task.firebaseKey));
 
     Promise.all(deleteTaskPromises).then(() => {
-      deleteSingleList(listId).then(resolve);
+      deleteList(listId).then(resolve);
     });
   }).catch((error) => reject(error));
 });
 
-export { viewTaskDetails, viewListDetails, deleteListTasks };
+const deleteBoardLists = (boardId) => new Promise((resolve, reject) => {
+  getBoardList(boardId).then((listArray) => {
+    console.warn(listArray, 'Project Board');
+    const deleteListPromises = listArray.map((list) => deleteList(list.firebaseKey));
+
+    Promise.all(deleteListPromises).then(() => {
+      deleteSingleBoard(boardId).then(resolve);
+    });
+  }).catch((error) => reject(error));
+});
+
+export {
+  viewTaskDetails, viewListDetails, deleteListTasks, deleteBoardLists,
+};
