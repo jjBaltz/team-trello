@@ -8,7 +8,17 @@ import { signOut } from '../utils/auth';
 
 export default function NavBarAuth() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar
+      style={{
+        backgroundColor: 'transparent',
+        border: '1px, solid',
+        borderWidth: 'thin',
+        borderTop: 'none',
+      }}
+      collapseOnSelect
+      expand="lg"
+      variant="dark"
+    >
       <Container>
         <Link passHref href="/">
           <Navbar.Brand>Trello</Navbar.Brand>

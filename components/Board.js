@@ -38,15 +38,30 @@ const Board = () => {
                 value={newListTitle}
                 onChange={(e) => setNewListTitle(e.target.value)}
               />
-              <Button variant="success" className="ml-2" style={{ marginTop: '10px' }} onClick={handleNewListClick}>
+              <Button variant="success" className="ml-2" style={{ marginTop: '10px', backgroundColor: 'transparent' }} onClick={handleNewListClick}>
                 Add List
               </Button>
             </div>
           </Col>
         ) : (
           <Col>
-            <Button variant="primary" className="ml-2" style={{ marginTop: '10px' }} onClick={() => setShowListForm(true)}>
-              + Add a list
+            <Button
+              variant="dark"
+              className="ml-2"
+              style={{
+                marginTop: '10px',
+                backgroundColor: '#b1a7a765',
+                border: 'none',
+                width: '100%',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                color: 'white',
+              }}
+              onClick={() => setShowListForm(true)}
+            >
+              + Add another list
             </Button>
           </Col>
         )}
