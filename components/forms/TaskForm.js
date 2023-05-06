@@ -8,9 +8,8 @@ import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
   desc: '',
-  starred: '',
+  favorite: false,
   assignedMember: '',
-
 };
 function TaskForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
@@ -123,7 +122,7 @@ function TaskForm({ obj }) {
 TaskForm.propTypes = {
   obj: PropTypes.shape({
     desc: PropTypes.string,
-    starred: PropTypes.string,
+    favorite: PropTypes.bool,
     assignedMember: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
