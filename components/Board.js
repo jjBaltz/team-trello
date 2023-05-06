@@ -6,8 +6,8 @@ import { lists } from '../utils/data/lists.json';
 const Board = () => {
   const [boardLists, setBoardLists] = useState(lists);
   const [newListTitle, setNewListTitle] = useState('');
+  const [showListForm, setShowListForm] = useState(false); // State to control list form visibility
 
-  // TEST CODE w/o firebase
   const handleNewListClick = () => {
     if (newListTitle.trim() !== '') {
       const newList = {
@@ -17,6 +17,7 @@ const Board = () => {
       };
       setBoardLists([...boardLists, newList]);
       setNewListTitle('');
+      setShowListForm(false); // Hide the list form after adding a new list
     }
   };
 
@@ -28,19 +29,27 @@ const Board = () => {
             <List style={{ borderRadius: '10' }} title={title} cards={cards} />
           </Col>
         ))}
-        <Col>
-          <div className="list-add">
-            <input
-              type="text"
-              placeholder="Enter list title"
-              value={newListTitle}
-              onChange={(e) => setNewListTitle(e.target.value)}
-            />
-            <Button variant="success" className="ml-2" style={{ marginTop: '10px' }} onClick={handleNewListClick}>
-              Add List
+        {showListForm ? ( // Render the list form only if showListForm is true
+          <Col>
+            <div className="list-add">
+              <input
+                type="text"
+                placeholder="Enter list title"
+                value={newListTitle}
+                onChange={(e) => setNewListTitle(e.target.value)}
+              />
+              <Button variant="success" className="ml-2" style={{ marginTop: '10px' }} onClick={handleNewListClick}>
+                Add List
+              </Button>
+            </div>
+          </Col>
+        ) : (
+          <Col>
+            <Button variant="primary" className="ml-2" style={{ marginTop: '10px' }} onClick={() => setShowListForm(true)}>
+              + Add a list
             </Button>
-          </div>
-        </Col>
+          </Col>
+        )}
       </div>
     </Container>
   );

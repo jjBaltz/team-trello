@@ -5,6 +5,7 @@ import { Card, Form, Button } from 'react-bootstrap';
 const List = ({ title, cards }) => {
   const [newCardText, setNewCardText] = useState('');
   const [listCards, setListCards] = useState(cards);
+  const [showForm, setShowForm] = useState(false); // State to control form visibility
 
   const handleNewCardClick = () => {
     const newCard = {
@@ -13,6 +14,7 @@ const List = ({ title, cards }) => {
     };
     setListCards([...listCards, newCard]);
     setNewCardText('');
+    setShowForm(false); // Hide the form after adding a new card
   };
 
   return (
@@ -23,20 +25,27 @@ const List = ({ title, cards }) => {
           <Card.Body>{card.text}</Card.Body>
         </Card>
       ))}
-      <Form>
-        <Form.Group>
-          <Form.Control
-            type="text"
-            value={newCardText}
-            onChange={(e) => setNewCardText(e.target.value)}
-            placeholder="Enter a new card"
-            required
-          />
-        </Form.Group>
-        <Button variant="success" style={{ marginTop: '20px' }} onClick={handleNewCardClick}>
-          Add Card
+      {showForm && ( // Render the form only if showForm is true
+        <Form>
+          <Form.Group>
+            <Form.Control
+              type="text"
+              value={newCardText}
+              onChange={(e) => setNewCardText(e.target.value)}
+              placeholder="Enter a new card"
+              required
+            />
+          </Form.Group>
+          <Button variant="success" style={{ marginTop: '20px' }} onClick={handleNewCardClick}>
+            Add Card
+          </Button>
+        </Form>
+      )}
+      {!showForm && ( // Render the "Add" button when showForm is false
+        <Button variant="primary" onClick={() => setShowForm(true)}>
+          + Add a card
         </Button>
-      </Form>
+      )}
     </div>
   );
 };
