@@ -1,0 +1,42 @@
+{
+  "lists": [
+    {
+      "id": "1",
+      "title": "To Do",
+      "cards": [
+        {
+          "id": "1",
+          "text": "Get to MVP"
+        },
+        {
+          "id": "2",
+          "text": "Finish Components"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "In Progress",
+      "cards": [
+        {
+          "id": "3",
+          "text": "Implement Drag and Drop"
+        },
+        {
+          "id": "4",
+          "text": "Work on Styling"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Done",
+      "cards": [
+        {
+          "id": "5",
+          "text": "Deploy Application"
+        }
+      ]
+    }
+  ]
+}
