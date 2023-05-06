@@ -9,7 +9,7 @@ import { useAuth } from '../../utils/context/authContext';
 const initialState = {
   boardTitle: '',
   card: '',
-  starred: '',
+  favorite: false,
   members: '',
 };
 function BoardForm({ obj }) {
@@ -62,6 +62,22 @@ function BoardForm({ obj }) {
         />
       </FloatingLabel>
 
+      {/* A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
+      <Form.Check
+        className="text-white mb-3"
+        type="switch"
+        id="favorite"
+        name="favorite"
+        label="Favorite?"
+        checked={formInput.favorite}
+        onChange={(e) => {
+          setFormInput((prevState) => ({
+            ...prevState,
+            favorite: e.target.checked,
+          }));
+        }}
+      />
+
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Board</Button>
     </Form>
@@ -72,7 +88,7 @@ BoardForm.propTypes = {
   obj: PropTypes.shape({
     boardTitle: PropTypes.string,
     card: PropTypes.string,
-    starred: PropTypes.string,
+    favorite: PropTypes.bool,
     members: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
