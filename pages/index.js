@@ -17,11 +17,13 @@ function Home() {
         margin: '0 auto',
       }}
     >
+
       <h1>Hello {user.displayName}! </h1>
-      <Link href="/member/new" passHref>
+      <Link href="/boards" passHref>
         <Button>Create a Project</Button>
       </Link>
     </div>
+
   );
 }
 
