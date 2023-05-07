@@ -35,6 +35,7 @@ const List = ({ title, cards }) => {
         <Form onSubmit={handleNewCardSubmit}>
           <Form.Group>
             <Form.Control
+              style={{ fontSize: 'small' }}
               type="text"
               value={newCardText}
               onChange={(e) => setNewCardText(e.target.value)}
