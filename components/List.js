@@ -25,7 +25,7 @@ const List = ({ title, cards }) => {
 
   return (
     <div className="list">
-      <h4>{title}</h4>
+      <h4 className="title">{title}</h4>
       {listCards.map((card) => (
         <Card style={{ borderRadius: '10' }} key={card.id} className="mb-2">
           <Card.Body>{card.text}</Card.Body>
