@@ -64,7 +64,6 @@ function Board() {
               variant="dark"
               className="ml-2"
               style={{
-                marginTop: '10px',
                 backgroundColor: '#b1a7a765',
                 border: 'none',
                 width: '100%',
