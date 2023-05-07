@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Col, Button } from 'react-bootstrap';
 import List from './List';
-import { lists } from '../utils/data/lists.json';
+import listsData from '../utils/data/lists.json';
 
-const Board = () => {
-  const [boardLists, setBoardLists] = useState(lists);
+function Board() {
+  const [boardLists, setBoardLists] = useState([]);
   const [newListTitle, setNewListTitle] = useState('');
-  const [showListForm, setShowListForm] = useState(false); // State to control list form visibility
+  const [showListForm, setShowListForm] = useState(false);
+
+  useEffect(() => {
+    setBoardLists(listsData.lists);
+  }, []);
 
   const handleNewListClick = () => {
     if (newListTitle.trim() !== '') {
@@ -17,28 +21,39 @@ const Board = () => {
       };
       setBoardLists([...boardLists, newList]);
       setNewListTitle('');
-      setShowListForm(false); // Hide the list form after adding a new list
+      setShowListForm(false);
     }
+  };
+
+  const handleButtonClick = () => {
+    setShowListForm(true);
   };
 
   return (
     <Container className="my-4">
       <div className="d-flex flex-nowrap">
-        {boardLists.map(({ id, title, cards }) => (
-          <Col key={id}>
-            <List style={{ borderRadius: '10' }} title={title} cards={cards} />
+        {boardLists.map((list) => (
+          <Col key={list.id}>
+            <List style={{ borderRadius: '10' }} title={list.title} cards={list.cards} />
           </Col>
         ))}
-        {showListForm ? ( // Render the list form only if showListForm is true
+
+        {showListForm ? (
           <Col>
-            <div className="list-add">
+            <div className={`list-add ${showListForm ? 'form-background' : ''}`}>
               <input
+                style={{ borderRadius: '5px' }}
                 type="text"
                 placeholder="Enter list title"
                 value={newListTitle}
                 onChange={(e) => setNewListTitle(e.target.value)}
               />
-              <Button variant="success" className="ml-2" style={{ marginTop: '10px', backgroundColor: 'transparent' }} onClick={handleNewListClick}>
+              <Button
+                variant="primary"
+                className="ml-2"
+                style={{ marginTop: '10px' }}
+                onClick={handleNewListClick}
+              >
                 Add List
               </Button>
             </div>
@@ -59,7 +74,7 @@ const Board = () => {
                 justifyContent: 'flex-start',
                 color: 'white',
               }}
-              onClick={() => setShowListForm(true)}
+              onClick={handleButtonClick}
             >
               + Add another list
             </Button>
@@ -68,6 +83,6 @@ const Board = () => {
       </div>
     </Container>
   );
-};
+}
 
 export default Board;
