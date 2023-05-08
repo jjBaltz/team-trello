@@ -29,6 +29,11 @@ function Board() {
     setShowListForm(true);
   };
 
+  const handleCancelClick = () => {
+    setShowListForm(false);
+    setNewListTitle('');
+  };
+
   return (
     <Container className="my-4">
       <div className="d-flex flex-nowrap">
@@ -40,21 +45,31 @@ function Board() {
 
         {showListForm ? (
           <Col>
-            <div className={`list-add ${showListForm ? 'form-background' : ''}`}>
-              <input
-                style={{ borderRadius: '5px' }}
-                type="text"
-                placeholder="Enter list title"
-                value={newListTitle}
-                onChange={(e) => setNewListTitle(e.target.value)}
-              />
+            <div className={`list-add ${showListForm ? 'form-background' : ''}`} style={{ border: '1px solid #ccc' }}>
+              <div style={{ marginBottom: '10px' }}>
+                <input
+                  style={{ borderRadius: '5px' }}
+                  type="text"
+                  placeholder="Enter list title"
+                  value={newListTitle}
+                  onChange={(e) => setNewListTitle(e.target.value)}
+                />
+              </div>
               <Button
                 variant="primary"
                 className="ml-2"
-                style={{ marginTop: '10px' }}
+                style={{ width: '100px' }}
                 onClick={handleNewListClick}
               >
                 Add List
+              </Button>
+              <Button
+                variant="light"
+                className="ml-2"
+                style={{ width: '100px' }}
+                onClick={handleCancelClick}
+              >
+                X
               </Button>
             </div>
           </Col>
