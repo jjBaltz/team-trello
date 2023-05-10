@@ -1,12 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Button } from 'react-bootstrap'; // TODO: COMMENT IN FOR AUTH
-// import { signOut } from '../utils/auth'; // TODO: COMMENT IN FOR AUTH
-import { useAuth } from '../utils/context/authContext'; // TODO: COMMENT IN FOR AUTH
+import { Button } from 'react-bootstrap';
+import { useAuth } from '../utils/context/authContext';
+import { getBoards } from '../api/boardData';
+import Board from '../components/Board';
 
 function Home() {
-  const { user } = useAuth(); // TODO: COMMENT IN FOR AUTH
+  const [boards, setBoards] = useState([]);
+  const { user } = useAuth();
 
-  // const user = { displayName: 'Dr. T' }; // TODO: COMMENT OUT FOR AUTH
+  const getAllBoards = () => {
+    getBoards(user.uid).then(setBoards);
+  };
+
+  useEffect(() => {
+    getAllBoards();
+  }, []);
+
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
@@ -19,9 +30,14 @@ function Home() {
     >
 
       <h1>Hello {user.displayName}! </h1>
-      <Link href="/boards" passHref>
+      <Link href="/board/newBoard" passHref>
         <Button>Create a Project</Button>
       </Link>
+      <div className="d-flex flex-wrap">
+        {boards.map((board) => (
+          <Board key={board.firebaseKey} boardObj={board} onUpdate={getBoards} />
+        ))}
+      </div>
     </div>
 
   );
