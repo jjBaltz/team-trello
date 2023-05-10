@@ -2,7 +2,6 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-// GET ALL SPIRITS
 const getBoards = (uid) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/board.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
@@ -21,7 +20,6 @@ const getBoards = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// CREATE SPIRIT
 const createBoard = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/board.json`, {
     method: 'POST',
@@ -56,7 +54,6 @@ const getSingleBoard = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// DELETE SPIRIT
 const deleteSingleBoard = (firebaseKey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/board/${firebaseKey}.json`, {
     method: 'DELETE',
@@ -69,7 +66,6 @@ const deleteSingleBoard = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// UPDATE SPIRIT
 const updateBoard = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/board/${payload.firebaseKey}.json`, {
     method: 'PATCH',
@@ -89,9 +85,8 @@ const updateBoard = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// GET A SINGLE SPIRIT'S BOTTLES
 const getBoardList = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/list.json?orderBy= "spirit_id" &equalTo="${firebaseKey}"`, {
+  fetch(`${endpoint}/list.json?orderBy= "board_id" &equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
