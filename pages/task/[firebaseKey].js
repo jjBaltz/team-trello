@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { viewTaskDetails } from '../../api/mergedData';
 
-export default function ViewTast() {
+export default function ViewTask() {
   const [taskDetails, setTaskDetails] = useState({});
   const router = useRouter();
 

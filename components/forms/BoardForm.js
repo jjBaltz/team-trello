@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
+import { createBoard, updateBoard } from '../../api/boardData';
 
 const initialState = {
   boardTitle: '',
@@ -14,7 +15,7 @@ const initialState = {
 };
 function BoardForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
-  // const router = useRouter();
+  const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
@@ -29,25 +30,24 @@ function BoardForm({ obj }) {
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (obj.firebaseKey) {
-  //     updateBoard(formInput)
-  //       .then(() => router.push(`/board/${obj.firebaseKey}`));
-  //   } else {
-  //     const payload = { ...formInput, uid: user.uid };
-  //     createBoard(payload).then(({ name }) => {
-  //       const patchPayload = { firebaseKey: name };
-  //       updateBoard(patchPayload).then(() => {
-  //         router.push('/');
-  //       });
-  //     });
-  //   }
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (obj.firebaseKey) {
+      updateBoard(formInput)
+        .then(() => router.push(`/board/${obj.firebaseKey}`));
+    } else {
+      const payload = { ...formInput, uid: user.uid };
+      createBoard(payload).then(({ name }) => {
+        const patchPayload = { firebaseKey: name };
+        updateBoard(patchPayload).then(() => {
+          router.push('/');
+        });
+      });
+    }
+  };
 
   return (
-    // <Form onSubmit={handleSubmit}>
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Project Board</h2>
 
       {/* TITLE INPUT  */}
