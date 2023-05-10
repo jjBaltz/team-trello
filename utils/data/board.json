@@ -2,25 +2,25 @@
   "-NTqAXxeqf_Lup67lWPB": {
     "firebaseKey": "-NTqAXxeqf_Lup67lWPB",
     "uid": "",
-    "boardTitle": "",
+    "boardTitle": "Test Project 1",
     "card": "",
-    "starred": "",
+    "favorite": "false",
     "members": ""
   },
   "-NTqBtEtkTRfdG-tig_4": {
     "firebaseKey": "-NTqBtEtkTRfdG-tig_4",
     "uid": "",
-    "boardTitle": "",
+    "boardTitle": "Test Project 2",
     "card": "",
-    "starred": "",
+    "favorite": "true",
     "members": ""
   },
   "-NTqDnAMVCq3e7UEXIAs": {
     "firebaseKey": "-NTqDnAMVCq3e7UEXIAs",
     "uid": "",
-    "boardTitle": "",
+    "boardTitle": "Test Project 3",
     "card": "",
-    "starred": "",
+    "favorite": "false",
     "members": ""
   }
 
