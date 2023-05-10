@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
+import { getBoards } from '../../api/boardData';
+import { createList, updateList } from '../../api/listData';
 
 const initialState = {
   listTitle: '',
@@ -12,11 +14,10 @@ const initialState = {
 function ListForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [board, setBoard] = useState([]);
-  // const router = useRouter();
+  const router = useRouter();
   const { user } = useAuth();
-  // change to getBoard
   useEffect(() => {
-    setBoard(user.uid).then(setBoard);
+    getBoards(user.uid).then(setBoard);
 
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
@@ -29,25 +30,23 @@ function ListForm({ obj }) {
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (obj.firebaseKey) {
-  //     updateList(formInput)
-  //     // change from book to books on THU
-  //       .then(() => router.push(`/list/${obj.firebaseKey}`));
-  //   } else {
-  //     const payload = { ...formInput, uid: user.uid };
-  //     createList(payload).then(({ name }) => {
-  //       const patchPayload = { firebaseKey: name };
-  //       updateList(patchPayload).then(() => {
-  //         router.push('/');
-  //       });
-  //     });
-  //   }
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (obj.firebaseKey) {
+      updateList(formInput)
+        .then(() => router.push(`/list/${obj.firebaseKey}`));
+    } else {
+      const payload = { ...formInput, uid: user.uid };
+      createList(payload).then(({ name }) => {
+        const patchPayload = { firebaseKey: name };
+        updateList(patchPayload).then(() => {
+          router.push('/');
+        });
+      });
+    }
+  };
   return (
-    // <Form onSubmit={handleSubmit}>
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} List</h2>
 
       {/* LIST TITLE INPUT  */}

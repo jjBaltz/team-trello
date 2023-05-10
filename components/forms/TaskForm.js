@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
+import { createTask, getListTasks, updateTask } from '../../api/taskData';
 
 const initialState = {
   desc: '',
@@ -14,11 +15,10 @@ const initialState = {
 function TaskForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [list, setList] = useState([]);
-  // const router = useRouter();
+  const router = useRouter();
   const { user } = useAuth();
-  // change to getList
   useEffect(() => {
-    setList(user.uid).then(setList);
+    getListTasks(user.uid).then(setList);
 
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
@@ -31,26 +31,24 @@ function TaskForm({ obj }) {
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (obj.firebaseKey) {
-  //     updateTask(formInput)
-  //     // change from book to books on THU
-  //       .then(() => router.push(`/task/${obj.firebaseKey}`));
-  //   } else {
-  //     const payload = { ...formInput, uid: user.uid };
-  //     createTask(payload).then(({ name }) => {
-  //       const patchPayload = { firebaseKey: name };
-  //       updateTask(patchPayload).then(() => {
-  //         router.push('/');
-  //       });
-  //     });
-  //   }
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (obj.firebaseKey) {
+      updateTask(formInput)
+        .then(() => router.push(`/task/${obj.firebaseKey}`));
+    } else {
+      const payload = { ...formInput, uid: user.uid };
+      createTask(payload).then(({ name }) => {
+        const patchPayload = { firebaseKey: name };
+        updateTask(patchPayload).then(() => {
+          router.push('/');
+        });
+      });
+    }
+  };
 
   return (
-    // <Form onSubmit={handleSubmit}>
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Task</h2>
 
       {/* NAME INPUT  */}
