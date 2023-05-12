@@ -1,20 +1,21 @@
-// /* eslint-disable @next/next/no-img-element */
-// import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
+/* eslint-disable @next/next/no-img-element */
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { viewListDetails } from '../../api/mergedData';
 
-// export default function ViewList() {
-//   const [listDetails, setListDetails] = useState({});
-//   const router = useRouter();
+export default function ViewList() {
+  const [listDetails, setListDetails] = useState({});
+  const router = useRouter();
 
-//   const { firebaseKey } = router.query;
+  const { firebaseKey } = router.query;
 
-//   useEffect(() => {
-//     viewListDetails(firebaseKey).then(setListDetails);
-//   }, [firebaseKey]);
+  useEffect(() => {
+    viewListDetails(firebaseKey).then(setListDetails);
+  }, [firebaseKey]);
 
-//   return (
-//     <>
-//       <h1>{listDetails.name}</h1>
-//     </>
-//   );
-// }
+  return (
+    <>
+      <h1>{listDetails.name}</h1>
+    </>
+  );
+}
