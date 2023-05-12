@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Button } from 'react-bootstrap';
-import { viewListDetails } from '../../api/mergedData';
-import { getBoardList } from '../../api/listData';
+import { viewBoardDetails } from '../../api/mergedData';
 import ListCard from '../../components/ListCard';
+import { getBoardList } from '../../api/boardData';
 
 export default function ViewBoard() {
   const [boardDetails, setBoardDetails] = useState({});
@@ -15,7 +15,7 @@ export default function ViewBoard() {
   const { firebaseKey } = router.query;
 
   useEffect(() => {
-    viewListDetails(firebaseKey).then(setBoardDetails);
+    viewBoardDetails(firebaseKey).then(setBoardDetails);
   }, [firebaseKey]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function ViewBoard() {
     <>
       <div className="d-flex">
         <div className="mt-5" />
-        <div className="d-flex flex-column text-black mt-5 details">
+        <div className="d-flex flex-column text-white mt-5 details">
           <h2>
             {boardDetails.boardTitle}
             {boardDetails.favorite ? ' ☆' : ''}

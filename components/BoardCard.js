@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { deleteBoardLists } from '../api/mergedData';
 
 function BoardCard({ boardObj, onUpdate }) {
-  // FOR DELETE, WE NEED TO REMOVE THE BOOK AND HAVE THE VIEW RERENDER,
-  // SO WE PASS THE FUNCTION FROM THE PARENT THAT GETS THE BOOKS
   const deleteThisBoard = () => {
     if (window.confirm(`Delete ${boardObj.boardTitle}?`)) {
       deleteBoardLists(boardObj.firebaseKey).then(() => onUpdate());
@@ -36,7 +34,6 @@ function BoardCard({ boardObj, onUpdate }) {
 BoardCard.propTypes = {
   boardObj: PropTypes.shape({
     boardTitle: PropTypes.string,
-    card: PropTypes.string,
     favorite: PropTypes.bool,
     members: PropTypes.string,
     firebaseKey: PropTypes.string,

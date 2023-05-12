@@ -37,14 +37,12 @@ function ListForm({ obj }) {
         .then(() => router.push(`/list/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
-      createList(payload).then(({ name }) => {
-        const patchPayload = { firebaseKey: name };
-        updateList(patchPayload).then(() => {
-          router.push(`/board/${obj.firebaseKey}`);
-        });
+      createList(payload).then(() => {
+        router.push('/');
       });
     }
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} List</h2>
@@ -54,24 +52,24 @@ function ListForm({ obj }) {
         <Form.Control
           type="text"
           placeholder="Title"
-          name="role"
-          value={formInput.role}
+          name="listTitle"
+          value={formInput.listTitle}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
 
       {/* BOARD SELECT  */}
-      <FloatingLabel controlId="floatingSelect" label="Team">
+      <FloatingLabel controlId="floatingSelect" label="Board">
         <Form.Select
-          aria-label="Team"
-          name="team_id"
+          aria-label="Board"
+          name="board_id"
           onChange={handleChange}
           className="mb-3"
-          value={formInput.team_id}
+          value={obj.board_id}
           required
         >
-          <option value="">Select a Project Board Affiliation</option>
+          <option value="">Select a Project Board</option>
           {
             board.map((boardKey) => (
               <option
@@ -94,12 +92,13 @@ function ListForm({ obj }) {
 ListForm.propTypes = {
   obj: PropTypes.shape({
     listTitle: PropTypes.string,
+    board_id: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };
+
 ListForm.defaultProps = {
   obj: initialState,
 };
-export default ListForm;
 
-// Change labels, name , and values in the form
+export default ListForm;

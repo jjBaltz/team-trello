@@ -1,5 +1,4 @@
 import { clientCredentials } from '../utils/client';
-// API CALLS FOR BOOKS
 
 const endpoint = clientCredentials.databaseURL;
 

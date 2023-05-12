@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import { deleteList } from '../api/listData';
-import TaskCard from './TaskCard';
+// import TaskCard from './TaskCard';
 
 function ListCard({ listObj, onUpdate }) {
   const deleteThisList = () => {
@@ -20,10 +20,13 @@ function ListCard({ listObj, onUpdate }) {
         <Link href={`/list/edit/${listObj.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
+        {/* <TaskCard /> */}
+        <Link href="/task/newtask" passHref>
+          <Button variant="primary">Add Task</Button>
+        </Link>
         <Button variant="danger" onClick={deleteThisList} className="m-2">
           DELETE
         </Button>
-        <TaskCard />
       </Card.Body>
     </Card>
   );

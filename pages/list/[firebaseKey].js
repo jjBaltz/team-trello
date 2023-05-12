@@ -9,7 +9,7 @@ import TaskCard from '../../components/TaskCard';
 
 export default function ViewList() {
   const [listDetails, setListDetails] = useState({});
-  const [tasks, setTasks] = useState({});
+  const [tasks, setTasks] = useState([]);
   const router = useRouter();
 
   const { firebaseKey } = router.query;
@@ -35,7 +35,7 @@ export default function ViewList() {
       </div>
       <br />
       <Link href="/list/newlist" passHref>
-        <Button variant="add-btl">Add A List</Button>
+        <Button variant="primary">Add A List</Button>
       </Link>
       <div className="d-flex flex-wrap">
         {tasks.map((task) => (
