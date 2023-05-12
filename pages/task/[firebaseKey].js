@@ -15,7 +15,7 @@ export default function ViewTask() {
 
   return (
     <>
-      <h1>{taskDetails.name}</h1>
+      <h1>{taskDetails.desc}</h1>
     </>
   );
 }

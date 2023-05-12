@@ -8,6 +8,7 @@ import { useAuth } from '../../utils/context/authContext';
 import { createTask, getListTasks, updateTask } from '../../api/taskData';
 
 const initialState = {
+  id: '',
   desc: '',
   favorite: false,
   assignedMember: '',

@@ -1,21 +1,30 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Link from 'next/link';
 
-function CardComponent({ text }) {
+function TaskCard({ taskObj }) {
   return (
-    <Card className="mb-2">
-      <Card.Body>{text}</Card.Body>
+    <Card style={{ width: '18rem', margin: '10px' }}>
+      <Card.Body>
+        <Card.Title>{taskObj.desc}</Card.Title>
+        <p className="card-text bold">{taskObj.favorite && <span>Favorite<br /></span> } {taskObj.assignedMember}</p>
+        <Link href={`/task/edit/${taskObj.firebaseKey}`} passHref>
+          <Button variant="info">EDIT</Button>
+        </Link>
+      </Card.Body>
     </Card>
   );
 }
 
-CardComponent.propTypes = {
-  text: PropTypes.string,
+TaskCard.propTypes = {
+  taskObj: PropTypes.shape({
+    desc: PropTypes.string,
+    favorite: PropTypes.bool,
+    assignedMember: PropTypes.string,
+    firebaseKey: PropTypes.string,
+  }).isRequired,
 };
 
-CardComponent.defaultProps = {
-  text: '', // Provide a default value for the "text" prop
-};
-
-export default CardComponent;
+export default TaskCard;

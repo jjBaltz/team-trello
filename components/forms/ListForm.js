@@ -40,7 +40,7 @@ function ListForm({ obj }) {
       createList(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
         updateList(patchPayload).then(() => {
-          router.push('/');
+          router.push(`/board/${obj.firebaseKey}`);
         });
       });
     }
@@ -50,10 +50,10 @@ function ListForm({ obj }) {
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} List</h2>
 
       {/* LIST TITLE INPUT  */}
-      <FloatingLabel controlId="floatingInput3" label="Member Role" className="mb-3">
+      <FloatingLabel controlId="floatingInput3" label="List Title" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Describe Role"
+          placeholder="Title"
           name="role"
           value={formInput.role}
           onChange={handleChange}
