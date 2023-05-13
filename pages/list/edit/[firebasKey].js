@@ -13,5 +13,5 @@ export default function EditList() {
     getSingleList(firebaseKey).then(setEditItem(firebaseKey));
   }, [firebaseKey]);
 
-  return (<ListForm obj={setEditItem} />);
+  return (<ListForm obj={editItem} />);
 }

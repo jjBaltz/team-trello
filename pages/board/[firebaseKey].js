@@ -13,13 +13,17 @@ export default function ViewBoard() {
   const router = useRouter();
 
   const { firebaseKey } = router.query;
+  const getAllBoardsList = () => {
+    getBoardList(firebaseKey).then(setLists);
+  };
 
   useEffect(() => {
     viewBoardDetails(firebaseKey).then(setBoardDetails);
   }, [firebaseKey]);
 
   useEffect(() => {
-    getBoardList(firebaseKey).then(setLists);
+    getAllBoardsList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firebaseKey]);
 
   return (
@@ -40,7 +44,7 @@ export default function ViewBoard() {
       </Link>
       <div className="d-flex flex-wrap">
         {lists.map((list) => (
-          <ListCard key={list.firebaseKey} listObj={list} onUpdate={getBoardList} />
+          <ListCard key={list.firebaseKey} listObj={list} onUpdate={getAllBoardsList} />
         ))}
       </div>
     </>
