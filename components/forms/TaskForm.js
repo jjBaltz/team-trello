@@ -11,7 +11,7 @@ const initialState = {
   id: '',
   desc: '',
   favorite: false,
-  assignedMember: '',
+  projectId: '',
 };
 function TaskForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
@@ -83,7 +83,7 @@ function TaskForm({ obj }) {
           name="listTitle"
           onChange={handleChange}
           className="mb-3"
-          value={formInput.listTitle}
+          value={obj.list_id}
           required
         >
           <option value="">Project List</option>
@@ -110,7 +110,7 @@ TaskForm.propTypes = {
   obj: PropTypes.shape({
     desc: PropTypes.string,
     favorite: PropTypes.bool,
-    assignedMember: PropTypes.string,
+    list_id: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };

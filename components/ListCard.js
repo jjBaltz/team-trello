@@ -21,7 +21,7 @@ function ListCard({ listObj, onUpdate }) {
           <Button variant="info">EDIT</Button>
         </Link>
         {/* <TaskCard /> */}
-        <Link href="/task/newtask" passHref>
+        <Link href="/task/newTask" passHref>
           <Button variant="primary">Add Task</Button>
         </Link>
         <Button variant="danger" onClick={deleteThisList} className="m-2">
