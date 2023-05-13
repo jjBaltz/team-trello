@@ -1,6 +1,6 @@
 import { getListTasks, getSingleTask, deleteTask } from './taskData';
 import { deleteList, getBoardList, getSingleList } from './listData';
-import { deleteSingleBoard } from './boardData';
+import { deleteSingleBoard, getSingleBoard } from './boardData';
 
 const viewTaskDetails = (taskFirebaseKey) => new Promise((resolve, reject) => {
   getSingleTask(taskFirebaseKey)
@@ -13,9 +13,19 @@ const viewTaskDetails = (taskFirebaseKey) => new Promise((resolve, reject) => {
 });
 
 const viewListDetails = (listFirebaseKey) => new Promise((resolve, reject) => {
-  Promise.all([getSingleList(listFirebaseKey), getListTasks(listFirebaseKey)])
-    .then(([listObject, listTasksArray]) => {
-      resolve({ ...listObject, tasks: listTasksArray });
+  getSingleList(listFirebaseKey)
+    .then((listObject) => {
+      getSingleList(listObject.board_id)
+        .then((boardObject) => {
+          resolve({ boardObject, ...listObject });
+        });
+    }).catch((error) => reject(error));
+});
+
+const viewBoardDetails = (boardFirebaseKey) => new Promise((resolve, reject) => {
+  Promise.all([getSingleBoard(boardFirebaseKey), getBoardList(boardFirebaseKey)])
+    .then(([boardObject, boardListsArray]) => {
+      resolve({ ...boardObject, lists: boardListsArray });
     }).catch((error) => reject(error));
 });
 
@@ -42,5 +52,5 @@ const deleteBoardLists = (boardId) => new Promise((resolve, reject) => {
 });
 
 export {
-  viewTaskDetails, viewListDetails, deleteListTasks, deleteBoardLists,
+  viewTaskDetails, viewListDetails, viewBoardDetails, deleteListTasks, deleteBoardLists,
 };

@@ -8,6 +8,7 @@ import { useAuth } from '../../utils/context/authContext';
 import { createTask, getListTasks, updateTask } from '../../api/taskData';
 
 const initialState = {
+  id: '',
   desc: '',
   favorite: false,
   assignedMember: '',
@@ -17,6 +18,7 @@ function TaskForm({ obj }) {
   const [list, setList] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
+
   useEffect(() => {
     getListTasks(user.uid).then(setList);
 
@@ -38,11 +40,8 @@ function TaskForm({ obj }) {
         .then(() => router.push(`/task/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
-      createTask(payload).then(({ name }) => {
-        const patchPayload = { firebaseKey: name };
-        updateTask(patchPayload).then(() => {
-          router.push('/');
-        });
+      createTask(payload).then(() => {
+        router.push(`/task/${obj.firebaseKey}`);
       });
     }
   };
@@ -51,41 +50,31 @@ function TaskForm({ obj }) {
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Task</h2>
 
-      {/* NAME INPUT  */}
-      <FloatingLabel controlId="floatingInput1" label="Member Name" className="mb-3">
+      <FloatingLabel controlId="floatingInput1" label="Decription" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Enter a Name"
-          name="name"
-          value={formInput.name}
+          placeholder="Description"
+          name="desc"
+          value={formInput.desc}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
 
-      {/* IMAGE INPUT  */}
-      <FloatingLabel controlId="floatingInput2" label="Member Image" className="mb-3">
-        <Form.Control
-          type="url"
-          placeholder="Enter an image url"
-          name="image"
-          value={formInput.image}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel>
-
-      {/* ROLE INPUT  */}
-      <FloatingLabel controlId="floatingInput3" label="Member Role" className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="Describe Role"
-          name="role"
-          value={formInput.role}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel>
+      <Form.Check
+        className="text-white mb-3"
+        type="switch"
+        id="favorite"
+        name="favorite"
+        label="Favorite?"
+        checked={formInput.favorite}
+        onChange={(e) => {
+          setFormInput((prevState) => ({
+            ...prevState,
+            favorite: e.target.checked,
+          }));
+        }}
+      />
 
       {/* LIST SELECT  */}
       <FloatingLabel controlId="floatingSelect" label="List">
@@ -97,7 +86,7 @@ function TaskForm({ obj }) {
           value={formInput.listTitle}
           required
         >
-          <option value="">Select a List Affiliation</option>
+          <option value="">Project List</option>
           {
             list.map((listKey) => (
               <option
@@ -131,5 +120,3 @@ TaskForm.defaultProps = {
 };
 
 export default TaskForm;
-
-// Change labels, name , and values in the form

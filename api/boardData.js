@@ -86,7 +86,7 @@ const updateBoard = (payload) => new Promise((resolve, reject) => {
 });
 
 const getBoardList = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/list.json?orderBy= "board_id" &equalTo="${firebaseKey}"`, {
+  fetch(`${endpoint}/list.json?orderBy="board_id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -9,7 +9,6 @@ import { createBoard, updateBoard } from '../../api/boardData';
 
 const initialState = {
   boardTitle: '',
-  card: '',
   favorite: false,
   members: '',
 };
@@ -54,7 +53,7 @@ function BoardForm({ obj }) {
       <FloatingLabel controlId="floatingInput1" label="Enter Project Board Name" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Enter a Project Board title"
+          placeholder="Project Board Title"
           name="boardTitle"
           value={formInput.boardTitle}
           onChange={handleChange}
@@ -77,6 +76,29 @@ function BoardForm({ obj }) {
           }));
         }}
       />
+
+      {/* <FloatingLabel controlId="floatingSelect" label="Team">
+        <Form.Select
+          aria-label="Team"
+          name="team_id"
+          onChange={handleChange}
+          className="mb-3"
+          value={formInput.team_id}
+          required
+        >
+          <option value="">Select a Project Board Affiliation</option>
+          {
+            members.map((boardKey) => (
+              <option
+                key={boardKey.firebaseKey}
+                value={boardKey.firebaseKey}
+              >
+                {boardKey.boardTitle}
+              </option>
+            ))
+          }
+        </Form.Select>
+      </FloatingLabel> */}
 
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Board</Button>

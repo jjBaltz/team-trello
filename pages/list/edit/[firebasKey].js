@@ -10,8 +10,8 @@ export default function EditList() {
   const { firebaseKey } = router.query;
 
   useEffect(() => {
-    getSingleList(firebaseKey).then(setEditItem);
+    getSingleList(firebaseKey).then(setEditItem(firebaseKey));
   }, [firebaseKey]);
 
-  return (<ListForm obj={editItem} />);
+  return (<ListForm obj={setEditItem} />);
 }

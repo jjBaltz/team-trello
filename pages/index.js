@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
 import { getBoards } from '../api/boardData';
-import Board from '../components/Board';
+import Board from '../components/BoardCard';
 
 function Home() {
   const [boards, setBoards] = useState([]);

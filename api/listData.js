@@ -80,10 +80,23 @@ const updateList = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getListTasks = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/list.json?orderBy= "board_id" &equalTo="${firebaseKey}"`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
+
 export {
   updateList,
   createList,
   getSingleList,
   deleteList,
   getBoardList,
+  getListTasks,
 };
